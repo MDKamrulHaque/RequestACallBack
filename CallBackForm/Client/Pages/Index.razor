@@ -1,0 +1,71 @@
+﻿@page "/"
+
+<div class="card-body p-5">
+    <h2 class="text-uppercase text-center mb-5">Request Call Back</h2>
+
+
+    <EditForm Model="callBackForm" OnValidSubmit="HandleCallBackRequest" >
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <InputText id="firstName" @bind-Value="callBackForm.FirstName" class="form-control"></InputText>
+            <ValidationMessage For="@(() => callBackForm.FirstName)" />
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <InputText id="lastName" @bind-Value="callBackForm.LastName" class="form-control"></InputText>
+            <ValidationMessage For="@(() => callBackForm.LastName)" />
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="required">Email</label>
+            <InputText id="email" @bind-Value="callBackForm.EmailAddress" class="form-control"></InputText>
+            <ValidationMessage For="@(() => callBackForm.EmailAddress)" />
+        </div>
+
+        <div class="form-group">
+            <label for="contactNumber" class="required">Contact Number</label>
+            <InputText id="contactNumber" @bind-Value="callBackForm.ContactNumber" class="form-control"></InputText>
+            <ValidationMessage For="@(() => callBackForm.ContactNumber)" />
+        </div>
+<div class="form-group">
+    <label for="bestTimeToCall" class="required">Best Time To Contact</label>
+    <div class="d-flex">
+       <input id="timeanddate" @bind="callBackForm.BestTimeToContact" class="form-control"></input>     
+    </div>
+
+            @if(ValidateBestTimeToContact() == false)
+            {
+                <p>Please select a time between 9am and 4:30pm on a date not older than today</p>
+            }
+</div>
+
+        <InputSelect id="school" class="form-control" @bind-Value="@callBackForm.SelectedSchoolName">
+            <option value="">-- Please select --</option>
+            @foreach (var school in schools)
+            {
+                <option value="@school.SchoolName">@school.SchoolName</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => callBackForm.SelectedSchoolName)" />
+
+
+
+
+        <div class="d-flex justify-content-center p-3">
+            <button type="submit"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                Submit Request
+            </button>
+        </div>
+
+    </EditForm>
+
+
+</div>
+
+
+
+
+
+
